@@ -12,11 +12,11 @@ const App: FC = () => {
 
   const [addTodo, { error: addError }] = useMutation(ADD_TODO, {
     update(cache, { data: { createTodo } }) {
-      const todos = cache.readQuery<allTodosCache>({ query: GET_TODOS })!.allTodos;
+      const todos = cache.readQuery<allTodosCache>({ query: GET_TODOS })?.allTodos;
       cache.writeQuery({
         query: GET_TODOS,
         data: {
-          allTodos: [createTodo, ...todos],
+          allTodos: [createTodo, ...todos as IList[]],
         },
       });
     },
